@@ -3,26 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Namrata's Constellation Portfolio</title>
+    <title>Namrata - Portfolio</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Comfortaa', cursive;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
-        
-        /* Floating stars background */
-        .stars {
+
+        /* Animated background elements */
+        .bg-elements {
             position: fixed;
             top: 0;
             left: 0;
@@ -31,433 +29,419 @@
             pointer-events: none;
             z-index: 1;
         }
-        
-        .star {
+
+        .butterfly {
             position: absolute;
-            color: rgba(255, 255, 255, 0.6);
-            animation: twinkle 3s infinite;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.7;
         }
-        
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.2); }
+
+        .butterfly:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .butterfly:nth-child(2) { top: 70%; right: 10%; animation-delay: 2s; }
+        .butterfly:nth-child(3) { top: 30%; left: 80%; animation-delay: 4s; }
+        .butterfly:nth-child(4) { top: 60%; left: 60%; animation-delay: 1s; }
+        .butterfly:nth-child(5) { top: 20%; right: 30%; animation-delay: 3s; }
+        .butterfly:nth-child(6) { top: 80%; left: 30%; animation-delay: 5s; }
+
+        .flower {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: sway 4s ease-in-out infinite;
+            opacity: 0.6;
         }
-        
+
+        .flower:nth-child(7) { bottom: 10%; left: 5%; animation-delay: 1s; }
+        .flower:nth-child(8) { bottom: 20%; right: 5%; animation-delay: 3s; }
+        .flower:nth-child(9) { top: 50%; left: 2%; animation-delay: 2s; }
+        .flower:nth-child(10) { top: 15%; right: 8%; animation-delay: 4s; }
+        .flower:nth-child(11) { bottom: 40%; right: 20%; animation-delay: 2.5s; }
+        .flower:nth-child(12) { top: 40%; left: 15%; animation-delay: 3.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
         .container {
             position: relative;
-            z-index: 10;
-            min-height: 100vh;
+            z-index: 2;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
             justify-content: center;
-            padding: 2rem;
         }
-        
-        .intro {
+
+        .title {
             text-align: center;
             margin-bottom: 3rem;
-            color: white;
         }
-        
-        .intro h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-        
-        .intro p {
+
+        .subtitle {
+            color: #ffffff;
             font-size: 1.2rem;
-            opacity: 0.9;
             margin-bottom: 2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            animation: fadeIn 2s ease-in;
         }
-        
-        .name-constellation {
+
+        .name-container {
             display: flex;
-            gap: 2rem;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: center;
-            margin-bottom: 3rem;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
-        
-        .letter-container {
+
+        .letter {
             position: relative;
             cursor: pointer;
-        }
-        
-        .letter {
-            font-size: 5rem;
-            font-weight: 700;
-            color: #fff;
-            text-shadow: 
-                0 0 5px rgba(255, 255, 255, 0.6),
-                0 0 10px rgba(255, 107, 157, 0.8),
-                0 0 15px rgba(255, 107, 157, 0.6),
-                0 0 20px rgba(255, 107, 157, 0.4);
-            animation: glow 2s ease-in-out infinite alternate;
             transition: all 0.3s ease;
-            position: relative;
-            z-index: 5;
+            user-select: none;
         }
-        
-        .letter:hover {
-            transform: scale(1.2) rotate(5deg);
+
+        .star-letter {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ffd700;
             text-shadow: 
-                0 0 8px rgba(255, 255, 255, 0.8),
-                0 0 15px rgba(255, 107, 157, 1),
-                0 0 25px rgba(255, 107, 157, 0.8),
-                0 0 35px rgba(255, 107, 157, 0.6);
+                0 0 5px #ffd700,
+                0 0 10px #ffd700;
+            animation: twinkle 2s ease-in-out infinite;
+            transition: all 0.3s ease;
         }
-        
-        @keyframes glow {
-            from { filter: brightness(1); }
-            to { filter: brightness(1.3); }
+
+        .star-letter:hover {
+            transform: scale(1.2);
+            text-shadow: 
+                0 0 8px #ffd700,
+                0 0 15px #ffd700,
+                0 0 20px #ffd700;
         }
-        
-        /* Constellation dots around letters */
-        .constellation-dots {
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
-            pointer-events: none;
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
-        
-        .dot {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: twinkle 2s infinite;
-        }
-        
-        /* Info card styles */
+
+        .letter:nth-child(1) .star-letter { animation-delay: 0s; }
+        .letter:nth-child(2) .star-letter { animation-delay: 0.3s; }
+        .letter:nth-child(3) .star-letter { animation-delay: 0.6s; }
+        .letter:nth-child(4) .star-letter { animation-delay: 0.9s; }
+        .letter:nth-child(5) .star-letter { animation-delay: 1.2s; }
+        .letter:nth-child(6) .star-letter { animation-delay: 1.5s; }
+        .letter:nth-child(7) .star-letter { animation-delay: 1.8s; }
+
         .info-card {
             position: absolute;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            top: -250px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(145deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            border: 3px solid #ffffff;
             border-radius: 20px;
             padding: 1.5rem;
-            min-width: 300px;
-            max-width: 350px;
             box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.2),
-                0 0 30px rgba(255, 107, 157, 0.3);
-            transform: translateY(20px) scale(0.8);
+                0 10px 30px rgba(0,0,0,0.3),
+                inset 0 2px 10px rgba(255,255,255,0.3);
             opacity: 0;
             pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 100;
-            border: 2px solid rgba(255, 107, 157, 0.3);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            min-width: 280px;
+            max-width: 320px;
+            z-index: 1000;
         }
-        
+
         .info-card.show {
-            transform: translateY(-10px) scale(1);
             opacity: 1;
             pointer-events: all;
+            transform: translateX(-50%) translateY(10px);
         }
-        
-        .info-card h3 {
-            color: #ff6b9d;
-            font-size: 1.3rem;
+
+        .card-header {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #4a5568;
             margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            text-align: center;
         }
-        
-        .info-card p {
-            color: #333;
+
+        .card-content {
+            color: #2d3748;
             line-height: 1.6;
             font-size: 0.95rem;
         }
-        
+
         .card-emoji {
-            font-size: 1.5rem;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-        
-        .footer {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 2rem;
-        }
-        
-        .kawaii-cloud {
-            position: fixed;
-            color: rgba(255, 255, 255, 0.3);
             font-size: 2rem;
-            animation: float 6s ease-in-out infinite;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: #ffffff;
+            opacity: 0.8;
+        }
+
+        .sparkle {
+            position: absolute;
+            color: #ffd700;
+            font-size: 1rem;
+            animation: sparkle 2s ease-in-out infinite;
             pointer-events: none;
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) translateX(0px); }
-            33% { transform: translateY(-20px) translateX(10px); }
-            66% { transform: translateY(-10px) translateX(-10px); }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
         }
-        
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile responsive */
         @media (max-width: 768px) {
-            .letter {
-                font-size: 2.8rem;
+            .container {
+                padding: 1rem;
             }
             
-            .name-constellation {
-                gap: 1rem;
+            .star-letter {
+                font-size: 2.5rem;
+            }
+            
+            .name-container {
+                gap: 0.5rem;
             }
             
             .info-card {
-                min-width: 280px;
+                min-width: 260px;
                 max-width: 90vw;
+                top: -220px;
+                padding: 1.2rem;
             }
             
-            .intro h1 {
+            .subtitle {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .star-letter {
                 font-size: 2rem;
+            }
+            
+            .info-card {
+                top: -200px;
+                font-size: 0.9rem;
+            }
+            
+            .card-header {
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
-    
-    <!-- Floating kawaii elements -->
-    <div class="kawaii-cloud" style="top: 10%; left: 10%; animation-delay: 0s;">☁️</div>
-    <div class="kawaii-cloud" style="top: 20%; right: 15%; animation-delay: 2s;">✨</div>
-    <div class="kawaii-cloud" style="bottom: 30%; left: 5%; animation-delay: 4s;">🌙</div>
-    <div class="kawaii-cloud" style="bottom: 15%; right: 10%; animation-delay: 1s;">⭐</div>
-    
+    <div class="bg-elements">
+        <div class="butterfly">🦋</div>
+        <div class="butterfly">🦋</div>
+        <div class="butterfly">🦋</div>
+        <div class="butterfly">🦋</div>
+        <div class="butterfly">🦋</div>
+        <div class="butterfly">🦋</div>
+        <div class="flower">🌸</div>
+        <div class="flower">🌺</div>
+        <div class="flower">🌼</div>
+        <div class="flower">🌻</div>
+        <div class="flower">🌷</div>
+        <div class="flower">🌹</div>
+    </div>
+
     <div class="container">
-        <div class="intro">
-            <h1>✨ Welcome to My Universe ✨</h1>
-            <p>Hover over each letter to discover my constellation of experiences! 🌟</p>
-        </div>
-        
-        <div class="name-constellation">
-            <div class="letter-container" data-letter="N">
-                <div class="letter">N</div>
-                <div class="constellation-dots">
-                    <div class="dot" style="top: 5px; left: 10px;"></div>
-                    <div class="dot" style="top: 15px; right: 8px;"></div>
-                    <div class="dot" style="bottom: 10px; left: 15px;"></div>
-                </div>
-                <div class="info-card">
-                    <h3><span class="card-emoji">🤖</span> NLP & Fake News Detection</h3>
-                    <p>Built an ML model using Natural Language Processing (NLP) to detect fake news as part of a college project. Passionate about using AI to combat misinformation! 📰✨</p>
-                </div>
-            </div>
+        <div class="title">
+            <div class="subtitle">✨ Welcome to the magical world of ✨</div>
             
-            <div class="letter-container" data-letter="A">
-                <div class="letter">A</div>
-                <div class="constellation-dots">
-                    <div class="dot" style="top: 8px; left: 12px;"></div>
-                    <div class="dot" style="top: 20px; right: 5px;"></div>
-                    <div class="dot" style="bottom: 5px; left: 8px;"></div>
+            <div class="name-container">
+                <div class="letter" data-letter="N">
+                    <div class="star-letter">N</div>
+                    <div class="info-card">
+                        <div class="card-emoji">🤖</div>
+                        <div class="card-header">NLP & Fake News Detection</div>
+                        <div class="card-content">
+                            Built an ML model using Natural Language Processing (NLP) to detect fake news as part of a college project. Passionate about using AI to combat misinformation! 📰✨
+                        </div>
+                    </div>
                 </div>
-                <div class="info-card">
-                    <h3><span class="card-emoji">🏦</span> Assistant Manager @ HSBC</h3>
-                    <p>Currently working at HSBC as Assistant Manager - VCIP, focusing on financial verification and data processes since January 2025. Making finance more efficient! 💼</p>
+
+                <div class="letter" data-letter="A">
+                    <div class="star-letter">A</div>
+                    <div class="info-card">
+                        <div class="card-emoji">🏦</div>
+                        <div class="card-header">Assistant Manager @ HSBC</div>
+                        <div class="card-content">
+                            Currently working at HSBC as Assistant Manager - VCIP, focusing on financial verification and data processes since January 2025. Making finance more efficient! 💼✨
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="letter-container" data-letter="M">
-                <div class="letter">M</div>
-                <div class="constellation-dots">
-                    <div class="dot" style="top: 12px; left: 5px;"></div>
-                    <div class="dot" style="top: 8px; right: 12px;"></div>
-                    <div class="dot" style="bottom: 15px; left: 10px;"></div>
+
+                <div class="letter" data-letter="M">
+                    <div class="star-letter">M</div>
+                    <div class="info-card">
+                        <div class="card-emoji">🧠</div>
+                        <div class="card-header">Machine Learning Enthusiast</div>
+                        <div class="card-content">
+                            Hands-on with foundational ML concepts and excited to integrate ML techniques into real-world applications. Always learning and growing! 🚀✨
+                        </div>
+                    </div>
                 </div>
-                <div class="info-card">
-                    <h3><span class="card-emoji">🧠</span> Machine Learning Enthusiast</h3>
-                    <p>Hands-on with foundational ML concepts and excited to integrate ML techniques into real-world applications. Always learning, always growing! 🚀</p>
+
+                <div class="letter" data-letter="R">
+                    <div class="star-letter">R</div>
+                    <div class="info-card">
+                        <div class="card-emoji">🏆</div>
+                        <div class="card-header">Real-World Certifications</div>
+                        <div class="card-content">
+                            Earned credentials from IBM in Data Fundamentals and Deloitte Australia in Data Analytics Job Simulation. Certified and ready! 📜✨
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="letter-container" data-letter="R">
-                <div class="letter">R</div>
-                <div class="constellation-dots">
-                    <div class="dot" style="top: 10px; left: 8px;"></div>
-                    <div class="dot" style="top: 18px; right: 10px;"></div>
-                    <div class="dot" style="bottom: 8px; left: 12px;"></div>
+
+                <div class="letter" data-letter="A">
+                    <div class="star-letter">A</div>
+                    <div class="info-card">
+                        <div class="card-emoji">📊</div>
+                        <div class="card-header">Analytical Thinker</div>
+                        <div class="card-content">
+                            Skilled in interpreting data, applying SQL for data handling, and using analytical methods to drive smart decisions. Data tells stories! 📈✨
+                        </div>
+                    </div>
                 </div>
-                <div class="info-card">
-                    <h3><span class="card-emoji">🏆</span> Real-World Certifications</h3>
-                    <p>Earned credentials from IBM in Data Fundamentals and Deloitte Australia in Data Analytics Job Simulation. Certified and ready to make an impact! 📜</p>
+
+                <div class="letter" data-letter="T">
+                    <div class="star-letter">T</div>
+                    <div class="info-card">
+                        <div class="card-emoji">💻</div>
+                        <div class="card-header">Tech Stack</div>
+                        <div class="card-content">
+                            HTML, CSS, JavaScript, Python, SQL, DSA – equipped to build clean, responsive, and data-driven applications. Code with passion! 👩‍💻✨
+                        </div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="letter-container" data-letter="A2">
-                <div class="letter">A</div>
-                <div class="constellation-dots">
-                    <div class="dot" style="top: 6px; left: 14px;"></div>
-                    <div class="dot" style="top: 22px; right: 6px;"></div>
-                    <div class="dot" style="bottom: 12px; left: 6px;"></div>
-                </div>
-                <div class="info-card">
-                    <h3><span class="card-emoji">📊</span> Analytical Thinker</h3>
-                    <p>Skilled in interpreting data, applying SQL for data handling, and using analytical methods to drive decisions. Turning data into insights! 🔍</p>
-                </div>
-            </div>
-            
-            <div class="letter-container" data-letter="T">
-                <div class="letter">T</div>
-                <div class="constellation-dots">
-                    <div class="dot" style="top: 4px; left: 16px;"></div>
-                    <div class="dot" style="top: 14px; right: 4px;"></div>
-                    <div class="dot" style="bottom: 6px; left: 14px;"></div>
-                </div>
-                <div class="info-card">
-                    <h3><span class="card-emoji">💻</span> Tech Stack</h3>
-                    <p>HTML, CSS, JavaScript, Python, SQL, DSA – equipped to build clean, responsive, and data-driven applications. Code is my creative canvas! 🎨</p>
-                </div>
-            </div>
-            
-            <div class="letter-container" data-letter="A3">
-                <div class="letter">A</div>
-                <div class="constellation-dots">
-                    <div class="dot" style="top: 11px; left: 7px;"></div>
-                    <div class="dot" style="top: 16px; right: 11px;"></div>
-                    <div class="dot" style="bottom: 9px; left: 11px;"></div>
-                </div>
-                <div class="info-card">
-                    <h3><span class="card-emoji">🎓</span> Academic Foundation</h3>
-                    <p>Graduated in Computer Engineering from the University of Mumbai (2017–2021), with a strong base in software and data systems. Built to last! 🏗️</p>
+
+                <div class="letter" data-letter="A">
+                    <div class="star-letter">A</div>
+                    <div class="info-card">
+                        <div class="card-emoji">🎓</div>
+                        <div class="card-header">Academic Foundation</div>
+                        <div class="card-content">
+                            Graduated in Computer Engineering from the University of Mumbai (2017–2021), with a strong foundation in software and data systems! 🌟✨
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="footer">
-            <p>🌟 Click my name letters to explore my journey! 🌟</p>
+            <p>✨ Hover over each letter to discover more about me! ✨</p>
+            <p>🌸 Made with love and creativity 🌸</p>
         </div>
     </div>
 
     <script>
-        // Create floating background stars
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const starSymbols = ['✦', '✧', '⋆', '✩', '✪', '✫', '⭐'];
-            
-            for (let i = 0; i < 50; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.innerHTML = starSymbols[Math.floor(Math.random() * starSymbols.length)];
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.fontSize = (Math.random() * 10 + 10) + 'px';
-                starsContainer.appendChild(star);
-            }
-        }
-        
-        // Handle letter hover effects
-        const letters = document.querySelectorAll('.letter-container');
+        // Handle card interactions
+        const letters = document.querySelectorAll('.letter');
         let activeCard = null;
-        
+
         letters.forEach(letter => {
             const card = letter.querySelector('.info-card');
             
-            letter.addEventListener('mouseenter', () => {
+            function showCard() {
                 // Hide any currently active card
                 if (activeCard && activeCard !== card) {
                     activeCard.classList.remove('show');
                 }
                 
-                // Position the card
-                const rect = letter.getBoundingClientRect();
-                const cardRect = card.getBoundingClientRect();
-                
-                // Position card above the letter by default
-                let top = -cardRect.height - 20;
-                let left = -(cardRect.width / 2) + (rect.width / 2);
-                
-                // Adjust if card goes off screen
-                if (rect.left + left < 10) {
-                    left = 10 - rect.left;
-                }
-                if (rect.left + left + cardRect.width > window.innerWidth - 10) {
-                    left = window.innerWidth - rect.left - cardRect.width - 10;
-                }
-                
-                // If card goes off top, position it below
-                if (rect.top + top < 10) {
-                    top = rect.height + 20;
-                }
-                
-                card.style.top = top + 'px';
-                card.style.left = left + 'px';
-                
-                // Show the card
-                setTimeout(() => {
-                    card.classList.add('show');
-                    activeCard = card;
-                }, 100);
-            });
-            
-            letter.addEventListener('mouseleave', (e) => {
-                // Check if mouse is going to the card
-                const cardRect = card.getBoundingClientRect();
-                const mouseX = e.clientX;
-                const mouseY = e.clientY;
-                
-                if (mouseX >= cardRect.left && mouseX <= cardRect.right &&
-                    mouseY >= cardRect.top && mouseY <= cardRect.bottom) {
-                    return; // Don't hide if mouse is over card
-                }
-                
-                setTimeout(() => {
-                    if (!card.matches(':hover') && !letter.matches(':hover')) {
-                        card.classList.remove('show');
-                        if (activeCard === card) activeCard = null;
-                    }
-                }, 100);
-            });
-            
-            // Keep card visible when hovering over it
-            card.addEventListener('mouseenter', () => {
                 card.classList.add('show');
-            });
+                activeCard = card;
+                
+                // Add sparkles
+                createSparkles(letter);
+            }
             
-            card.addEventListener('mouseleave', () => {
-                setTimeout(() => {
-                    if (!letter.matches(':hover')) {
-                        card.classList.remove('show');
-                        if (activeCard === card) activeCard = null;
-                    }
-                }, 100);
+            function hideCard() {
+                card.classList.remove('show');
+                if (activeCard === card) {
+                    activeCard = null;
+                }
+            }
+            
+            // Mouse events
+            letter.addEventListener('mouseenter', showCard);
+            letter.addEventListener('mouseleave', hideCard);
+            
+            // Touch events for mobile
+            letter.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                if (card.classList.contains('show')) {
+                    hideCard();
+                } else {
+                    showCard();
+                }
             });
         });
-        
-        // Initialize stars
-        createStars();
-        
-        // Add click effects
-        letters.forEach(letter => {
-            letter.addEventListener('click', () => {
-                const letterEl = letter.querySelector('.letter');
-                letterEl.style.transform = 'scale(1.3) rotate(15deg)';
-                letterEl.style.textShadow = `
-                    0 0 20px #fff,
-                    0 0 30px #fff,
-                    0 0 40px #ff6b9d,
-                    0 0 50px #ff6b9d,
-                    0 0 60px #ff6b9d,
-                    0 0 70px #ff6b9d,
-                    0 0 80px #ff6b9d
-                `;
-                
+
+        // Close cards when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.letter') && activeCard) {
+                activeCard.classList.remove('show');
+                activeCard = null;
+            }
+        });
+
+        // Create sparkle effects
+        function createSparkles(element) {
+            for (let i = 0; i < 5; i++) {
                 setTimeout(() => {
-                    letterEl.style.transform = '';
-                    letterEl.style.textShadow = '';
-                }, 300);
-            });
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.textContent = '✨';
+                    
+                    const rect = element.getBoundingClientRect();
+                    sparkle.style.left = (rect.left + Math.random() * rect.width) + 'px';
+                    sparkle.style.top = (rect.top + Math.random() * rect.height) + 'px';
+                    
+                    document.body.appendChild(sparkle);
+                    
+                    setTimeout(() => {
+                        sparkle.remove();
+                    }, 2000);
+                }, i * 100);
+            }
+        }
+
+        // Add floating animation to butterflies
+        const butterflies = document.querySelectorAll('.butterfly');
+        butterflies.forEach((butterfly, index) => {
+            setInterval(() => {
+                const maxX = window.innerWidth - 80; // Account for butterfly size
+                const maxY = window.innerHeight - 80;
+                const newX = Math.random() * maxX;
+                const newY = Math.random() * maxY;
+                butterfly.style.transition = 'all 3s ease-in-out';
+                butterfly.style.transform = `translate(${newX}px, ${newY}px)`;
+            }, 4000 + index * 800); // Stagger the animations more
         });
     </script>
 </body>
