@@ -290,8 +290,24 @@
                 margin-top: 20px;
             }
 
-            .info-card.show {
-                transform: translateX(-50%) translateY(0);
+            /* Fix positioning for first and last letters on mobile */
+            .letter:first-child .info-card {
+                left: 0;
+                transform: translateX(0);
+            }
+
+            .letter:last-child .info-card {
+                left: auto;
+                right: 0;
+                transform: translateX(0);
+            }
+
+            .letter:first-child .info-card.show {
+                transform: translateX(0) translateY(0);
+            }
+
+            .letter:last-child .info-card.show {
+                transform: translateX(0) translateY(0);
             }
 
             /* Ensure letters have enough space below for cards */
@@ -322,6 +338,37 @@
                 padding: 1rem;
                 font-size: 0.85rem;
                 margin-top: 15px;
+            }
+
+            /* Enhanced mobile positioning for small screens */
+            .letter:first-child .info-card {
+                left: 10px;
+                transform: translateX(0);
+            }
+
+            .letter:last-child .info-card {
+                left: auto;
+                right: 10px;
+                transform: translateX(0);
+            }
+
+            .letter:nth-child(2) .info-card {
+                left: 5px;
+                transform: translateX(0);
+            }
+
+            .letter:nth-child(6) .info-card {
+                left: auto;
+                right: 5px;
+                transform: translateX(0);
+            }
+
+            .letter:nth-child(2) .info-card.show {
+                transform: translateX(0) translateY(0);
+            }
+
+            .letter:nth-child(6) .info-card.show {
+                transform: translateX(0) translateY(0);
             }
             
             .card-header { 
@@ -367,6 +414,29 @@
                 max-width: 95vw;
                 padding: 0.9rem;
                 font-size: 0.8rem;
+            }
+
+            /* Ultra-mobile positioning */
+            .letter:first-child .info-card {
+                left: 5px;
+                transform: translateX(0);
+            }
+
+            .letter:last-child .info-card {
+                left: auto;
+                right: 5px;
+                transform: translateX(0);
+            }
+
+            .letter:nth-child(2) .info-card {
+                left: 2px;
+                transform: translateX(0);
+            }
+
+            .letter:nth-child(6) .info-card {
+                left: auto;
+                right: 2px;
+                transform: translateX(0);
             }
 
             .subtitle { font-size: 1.1rem; }
