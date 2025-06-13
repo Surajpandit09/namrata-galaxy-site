@@ -60,7 +60,6 @@
         .bg-star:nth-child(11) { top: 65%; left: 5%; font-size: 0.9rem; animation-delay: 3s; }
         .bg-star:nth-child(12) { top: 35%; left: 95%; font-size: 1.1rem; animation-delay: 3.5s; }
 
-
         /* Generating butterflies */
         .butterfly:nth-child(13) { top: 15%; left: 5%; animation-delay: 0s; }
         .butterfly:nth-child(14) { top: 80%; left: 85%; animation-delay: 2s; font-size: 2rem;}
@@ -85,7 +84,6 @@
             opacity: 0.5;
             transform: rotate(-15deg);
         }
-
 
         @keyframes float {
             0%, 100% { transform: translateY(0px) translateX(0px) rotate(5deg); }
@@ -140,13 +138,14 @@
             cursor: pointer;
             transition: all 0.3s ease;
             user-select: none;
+            /* Enable hover on all devices including mobile */
+            -webkit-tap-highlight-color: transparent;
         }
 
         .star-letter {
             font-size: 6rem;
             font-weight: bold;
             color: #ffffff;
-            /* Reduced glow effect for subtlety */
             text-shadow: 
                 0 0 1px #fff,
                 0 0 4px #e799d1;
@@ -215,6 +214,7 @@
             color: #2d3748;
             line-height: 1.5;
             font-size: 0.9rem;
+            text-align: left;
         }
 
         .card-emoji {
@@ -261,7 +261,7 @@
             
             .name-container {
                 gap: 0.5rem;
-                margin-bottom: 3rem;
+                margin-bottom: 4rem;
             }
 
             .subtitle {
@@ -278,15 +278,32 @@
             }
 
             .info-card {
-                min-width: 220px;
-                max-width: 90vw;
+                min-width: 250px;
+                max-width: 85vw;
+                font-size: 0.9rem;
+                padding: 1rem;
+                /* Adjust positioning for mobile to ensure cards stay visible */
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                margin-top: 20px;
+            }
+
+            .info-card.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            /* Ensure letters have enough space below for cards */
+            .letter {
+                margin-bottom: 2rem;
             }
         }
 
         @media (max-width: 480px) {
-             .butterfly { font-size: 1.2rem; }
-             .moon {font-size: 2.5rem;}
-             .cloud {font-size: 3rem;}
+            .butterfly { font-size: 1.2rem; }
+            .moon {font-size: 2.5rem;}
+            .cloud {font-size: 3rem;}
 
             .star-letter {
                 font-size: 3.2rem; 
@@ -294,28 +311,73 @@
             
             .name-container {
                 gap: 0.4rem;
-                margin-bottom: 4rem;
-                 /* Make name wrap into two lines if needed on very small screens */
+                margin-bottom: 5rem;
                 flex-direction: row;
                 max-width: 100vw;
             }
 
             .info-card {
-                top: 95%;
-                font-size: 0.8rem;
-                min-width: 200px;
+                min-width: 260px;
+                max-width: 90vw;
                 padding: 1rem;
+                font-size: 0.85rem;
+                margin-top: 15px;
             }
             
-            .card-header { font-size: 1rem; }
-            .card-content { font-size: 0.85rem; }
+            .card-header { 
+                font-size: 1rem; 
+            }
+            
+            .card-content { 
+                font-size: 0.85rem; 
+                line-height: 1.5;
+            }
 
             .subtitle { font-size: 1.2rem; }
-            .instruction { font-size: 0.9rem; }
+            .instruction { 
+                font-size: 0.9rem; 
+                padding: 0 0.5rem;
+            }
             
             .footer { margin-top: 1rem; }
             .footer p { font-size: 1.1rem; }
+
+            /* Extra space for letters to accommodate cards */
+            .letter {
+                margin-bottom: 2.5rem;
+            }
         }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .star-letter {
+                font-size: 2.8rem;
+            }
+
+            .name-container {
+                gap: 0.3rem;
+                margin-bottom: 6rem;
+            }
+
+            .info-card {
+                min-width: 240px;
+                max-width: 95vw;
+                padding: 0.9rem;
+                font-size: 0.8rem;
+            }
+
+            .subtitle { font-size: 1.1rem; }
+            .instruction { font-size: 0.85rem; }
+
+            .letter {
+                margin-bottom: 3rem;
+            }
+        }
+
+
     </style>
 </head>
 <body>
@@ -419,7 +481,7 @@
         </div>
 
         <div class="footer">
-            <p>🌟 Click my name letters to explore my journey! 🌟</p>
+            <p>🌟 Hover over my name letters to explore my journey! 🌟</p>
         </div>
     </div>
 
@@ -451,22 +513,30 @@
             letters.forEach(letter => {
                 const card = letter.querySelector('.info-card');
                 
-                // Mouse events for desktop
+                // Hover events for both desktop and mobile
                 letter.addEventListener('mouseenter', () => showCard(letter, card));
                 letter.addEventListener('mouseleave', () => hideCard(card));
                 
-                // Touch events for mobile
-                letter.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent click from bubbling to the document
-                    if (card.classList.contains('show')) {
-                        hideCard(card);
-                    } else {
-                        showCard(letter, card);
-                    }
+                // Touch events for better mobile support
+                letter.addEventListener('touchstart', (e) => {
+                    e.preventDefault(); // Prevent double-tap zoom
+                    showCard(letter, card);
+                });
+                
+                letter.addEventListener('touchend', () => {
+                    // Keep card visible on touch end
+                    // Card will hide when user touches elsewhere
                 });
             });
 
-            // Close cards when clicking outside
+            // Hide cards when touching outside on mobile
+            document.addEventListener('touchstart', (e) => {
+                if (!e.target.closest('.letter') && activeCard) {
+                    hideCard(activeCard);
+                }
+            });
+
+            // Hide cards when clicking outside on desktop
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.letter') && activeCard) {
                     hideCard(activeCard);
